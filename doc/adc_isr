@@ -1,0 +1,25 @@
+(reset timer)
+nco_pac = nco_pac + nco_fcw
+
+idd = id
+id = i
+ifdd = ifd
+ifd = if
+c = cos(nco)
+c * in = i 
+if = ... % filter
+
+qdd = qd
+qd = q
+s = sin(nco)
+s * in = q
+qf = ... % filter
+
+angled = angle
+angle = phi (if, qf)
+out = angled - angle
+
+err = sgn(out) * (soll - abs(out))
+errf = errf * (1-alpha) + err * alpha
+
+nco_fcw = nco_fcw - err
