@@ -16,6 +16,8 @@
 	rjmp uart_rx
 
 main:	
+; todo: port init
+; todo: test
 
 uart_init:
 .equ UBRR_VAL   = ((F_CPU+BAUDRATE*8)/(BAUDRATE*16)-1)
