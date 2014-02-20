@@ -48,6 +48,17 @@ timer_init:
 	ldi work, (1 << OCIE1A)
 	sts TIMSK1, work
 
+timer_dac_init:
+	ldi work, (1 << COM0A1) | (1 << COM0B1) | (1 << WGM01) | (1 << WGM00)
+	out TCCR0A, work
+
+	ldi work, (1 << CS00)
+	out TCCR0B, work 
+
+	ldi work, 127
+	out OCR0A, work
+	out OCR0B, work
+	
 	sei
 loop:	
 	rjmp loop
@@ -65,6 +76,6 @@ timer_isr:
 	sbr 	work, (1 << ADSC) | (1 << ADIF)
 	sts	ADCSRA, work
 	; output ADC result
-	out 	PORTD, temp
+	out 	OCR0B, temp
 	reti
 
