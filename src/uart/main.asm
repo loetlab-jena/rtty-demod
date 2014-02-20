@@ -16,8 +16,15 @@
 	rjmp uart_rx
 
 main:	
-; todo: port init
-; todo: test
+sp_init:
+	ldi	work, low(RAMEND)
+	out	SPL, work
+	ldi	work, high(RAMEND)
+	out	SPH, work
+
+port_init:
+	sbi	DDRD, PD1
+	cbi	DDRD, PD0
 
 uart_init:
 .equ UBRR_VAL   = ((F_CPU+BAUDRATE*8)/(BAUDRATE*16)-1)
